@@ -8,43 +8,45 @@ export default function TextForms(props) {
         //console.log("Uppercase was clicked" + text);
         let newText=text.toUpperCase();
         setText("You have clicked on handleUpClick");//because of state change it is re rander..
-        setText(newText)
+        setText(newText);
+        props.showalert("converted to upper case","success");
     }
     const handleLoClick = () => {
       //console.log("Lowercase was clicked" + text);
       let newText=text.toLowerCase();
       setText("You have clicked on handleLoClick");//because of state change it is re rander..
-      setText(newText)
+      setText(newText);
+      props.showalert("converted to lower case","success");
    }
    const handleClearClick = () => {
-    //console.log("Lowercase was clicked" + text);
+    //console.log("clear was clicked" + text);
     let newText='';
     setText("You have clicked on handleLoClick");//because of state change it is re rander..
     setText(newText)
- }
- const handleNubClick = () => {
-  //console.log("Lowercase was clicked" + text);
-  let newText=(text.match(/\d+/g) || []).join(" ");
-  setText("You have clicked on handleNubClick");//because of state change it is re rander..
-  setText(newText)
-}
-const handleLinkClick = () => {
-  //console.log("Lowercase was clicked" + text);
+   }
+   const handleNubClick = () => {
+   //console.log("number was clicked" + text);
+   let newText=(text.match(/\d+/g) || []).join(" ");
+   setText("You have clicked on handleNubClick");//because of state change it is re rander..
+   setText(newText)
+  }
+  const handleLinkClick = () => {
+  //console.log("link was clicked" + text);
   let newText= (text.match(/(https?:\/ \/[^\s]+|www\.[^\s]+)/g) || []).join(" ");
   setText("You have clicked on handleLinkClick");//because of state change it is re rander..
   setText(newText)
-}
-const handleExtraspace = () =>{
+  }
+  const handleExtraspace = () =>{
   let newText=text.split(/[ ]+/).join(" ");
-setText("you have clicked on handleExtraspace");
-setText(newText);
-
-}
+  setText("you have clicked on handleExtraspace");
+  setText(newText);
+  }
 
 
     const handleOnChange = (event)  =>{
         //console.log("On change");
         setText(event.target.value);//we can type in text new value 
+      
     }
 
     //hook always put under the function we use array destructing we set text and setText both
@@ -60,20 +62,20 @@ setText(newText);
         <h1>{props.heading}</h1>
 <div className="mb-3">
   {/* <label for="myBox" class="form-label">Example textarea</label> */}
-  <textarea className="form-control" value={text} onChange={handleOnChange} style={{backgroundColor:props.Mode==='dark'?'gray':'white', color:props.mode!=='dark'?'black':'white'}}id="myBox" rows="10"></textarea>
+  <textarea className="form-control" value={text} onChange={handleOnChange} style={{backgroundColor:props.mode==='dark'?'white':'white', color:props.mode!=='dark'?'black':'black'}}id="myBox" rows="10"></textarea>
 </div>
-<button className="btn btn-secondary mx-1" onClick={handleUpClick}>Convert to UpperCase</button>
-<button className="btn btn-secondary mx-1" onClick={handleLoClick}>Convert to LowerCase</button>
-<button className="btn btn-secondary mx-1" onClick={handleClearClick}>Clear Text</button>
-<button className="btn btn-secondary mx-1" onClick={handleNubClick}>Extract Number</button>
-<button className="btn btn-secondary mx-1" onClick={handleLinkClick}>Extract Link</button>
-<button className="btn btn-secondary mx-1" onClick={handleExtraspace}>Remove Extra space</button>
+<button className="btn btn-secondary mx-1 my-1" onClick={handleUpClick}>Convert to UpperCase</button>
+<button className="btn btn-secondary mx-1 my-1" onClick={handleLoClick}>Convert to LowerCase</button>
+<button className="btn btn-secondary mx-1 my-1" onClick={handleClearClick}>Clear Text</button>
+<button className="btn btn-secondary mx-1 my-1" onClick={handleNubClick}>Extract Number</button>
+<button className="btn btn-secondary mx-1 my-1" onClick={handleLinkClick}>Extract Link</button>
+<button className="btn btn-secondary mx-1 my-1" onClick={handleExtraspace}>Remove Extra space</button>
 
     </div>
     <div className="container" my-3  style={{color:props.mode!=='dark'? 'black':'white'}}>
       <h2>Your text summary</h2>
-      <p>{text.split(" ").length} word and {text.length} characters</p>
-      <p>{0.008 * text.split(" ").length} Minutes to read</p>
+      <p>{text.split(/\s+/).filter((element)=>{return element.length!==0}).length} word and {text.length} characters</p>
+      <p>{0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length} Minutes to read</p>
       <h2>Preview</h2>
       <p>{text.length>0?text:"Enter in the text for preview it"}</p>
     </div>
